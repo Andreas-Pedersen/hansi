@@ -1,15 +1,16 @@
 /*  Andreas Pedersen
- *  2018
- *  Leser data fra HAN-porten og sender det vidre til HS3 via NODE-RED på port 1880 /han?data=
+ *  2018.
+ *  Leser data fra HAN-porten og sender det videre til HS3 via NODE-RED på port 1880 /han?data=
  */
  
 #include <ESP8266WiFi.h>
 //////////////////////////////////////////////////////////
 ////////////// PERSONLIGE VARIABLER //////////////////////
 //////////////////////////////////////////////////////////
-const char* ssid = "ssid";      // Navn på wifi-nettverk
-const char* password = "xxx";   // Passord til dette
-const char* host = "xxx";       // IP TIL NODE-RED
+
+const char* ssid = "mittnettverk";      // Navn på wifi-nettverk
+const char* password = "passord";   // Passord til dette
+const char* host = "192.168.0.10";       // IP TIL NODE-RED
 const String url = "/postboks?data="; // hvilken url Node red lytter på
 const int port = 1880;          // PORT TIL NODE-RED
 
@@ -42,20 +43,18 @@ if(Serial.available()>0){
 }
 
 if (gotData != 0){
-  WiFiClient client;
+    
+    WiFiClient client;
  
-  if (!client.connect(host, int(port))) {
-    Serial.println("connection failed");
-    return;
-  }
+    if (!client.connect(host, int(port))) {
+      Serial.println("connection failed");
+      return;
+    }
   
-  client.print(String("GET ") + url + String(data) + " HTTP/1.1\r\n" +
-               "Host: " + host + "\r\n\r\n");
+    client.print(String("GET ") + url + String(data) + " HTTP/1.1\r\n" + "Host: " + host + "\r\n\r\n");
+    gotData = 0;
+    data = "";
  
-  gotData = 0;
-  data = "";
-  // Serial.println(data);
-}
-
+ }
 
 }  // THE-END
