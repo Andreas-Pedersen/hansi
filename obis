@@ -1,0 +1,73 @@
+var powerq1q4_list = ["01","01","01","07","00","ff"];
+var powerq2q3_list = ["01","01","02","07","00","ff"];
+var kwh_list       = ["01","01","01","08","00","ff"];
+var il1_list       = ["01","01","1f","07","00","ff"];
+var il2_list       = ["01","01","33","07","00","ff"];
+var il3_list       = ["01","01","47","07","00","ff"];
+var ul1_list       = ["01","01","20","07","00","ff"];
+var ul2_list       = ["01","01","34","07","00","ff"];
+var ul3_list       = ["01","01","48","07","00","ff"];
+
+temp = msg.payload;
+
+var pq1q4 = lookFor(powerq1q4_list);
+var pq2q3 = lookFor(powerq2q3_list);
+var kwh = lookFor(kwh_list);
+var il1 = lookFor(il1_list);
+var il2 = lookFor(il2_list);
+var il3 = lookFor(il3_list);
+var ul1 = lookFor(ul1_list);
+var ul2 = lookFor(ul2_list);
+var ul3 = lookFor(ul3_list);
+
+msg.payload = {
+    "pq1q4":pq1q4,
+    "pq2q3":pq2q3,
+    "iL1":il1,
+    "iL2":il2,
+    "iL3":il3,
+    "UL1":ul1,
+    "UL2":ul2,
+    "UL3":ul3,
+    "kwh":kwh
+};
+
+
+return msg;
+
+
+function lookFor(target){
+    
+    for (var i = 0; i < temp.length-target.length; i++){
+    
+        if (temp[i] == target[0]){
+            for (var j = 1; j < target.length; j++){
+      
+                if (temp[i+j] == target[j]){
+                    
+                    if (j == target.length-1) {
+                        var ind = i+j+1;
+                        var a = temp[ind];
+                        var b = 2;
+                        if (a == '06') {
+                            b = 4;
+                        }
+                        
+                        var resultat = "";
+                        
+                        for (var x = 0; x < b; x++){
+                            
+                            resultat += temp[ind+x+1];
+                            
+                        }
+                        return parseInt(resultat,16);
+                        
+                    }
+                    
+                
+                }
+                else break;
+            }
+        }
+    }
+}
