@@ -1,0 +1,12 @@
+// Først endrer vi dataen til HEX:
+
+var data = msg.payload.data.split(",");
+data.pop();  //fjern siste verdi siden det var komma på slutten
+
+for (var i = 0; i < data.length; i++){
+  data[i] = Number(data[i]).toString(16);
+  
+  if (data[i].length % 2) {
+    data[i] = '0' + data[i];
+  }
+}
