@@ -1,0 +1,32 @@
+var temp = msg.payload;
+var dataGood = false;
+
+if (temp[0] === "7e" && temp[temp.length-1] === "7e"){
+    
+    temp.pop();
+    temp.splice(0,1);
+
+    var a = parseInt(temp[0],16);
+    
+    var len = parseInt(temp[1],16);
+    if (a & 15 > 0){ 
+        len = len + 256;
+    }
+
+    if (len == temp.length){
+        
+        dataGood = true;
+    }
+}
+
+
+
+if (dataGood){
+    return msg;
+}
+
+else{
+    
+    node.error("Dårlig HAN-data inn!"+ temp);
+    return null;
+}
