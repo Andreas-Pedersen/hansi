@@ -6,7 +6,7 @@ I node-red kan du sende dataen hvor du vil.
 
 ![Node-red flow](/flow1.PNG)
 
-Ut kommer dekodet data fra debug-noden.
+Ut kommer dekodet data slik som fra debug-noden.
 Her kan du videresende det på din måte : 
 MQTT, JSON-kall, røyksignaler osv..
 
