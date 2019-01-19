@@ -6,5 +6,11 @@ I node-red kan du sende dataen hvor du vil.
 
 ![Node-red flow](/flow1.PNG)
 
+Ut kommer dekodet data fra debug-noden.
+Her kan du videresende det på din måte : 
+MQTT, JSON-kall, røyksignaler osv..
+
+Jeg sender data videre til Homeseer 3 PRO
+i JSON-format
 
 ![Node-red resultat](/debug.PNG)
