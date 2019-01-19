@@ -4,4 +4,4 @@ Sender det så videre til Node-red.
 
 I node-red kan du sende dataen hvor du vil.
 
-![Node-red flow](/flow.PNG)
+![Node-red flow](/flow1.PNG)
