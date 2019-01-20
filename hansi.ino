@@ -46,7 +46,10 @@ if (gotData != 0){
     client.print(String("GET ") + secret_nodered_url + String(data) + " HTTP/1.1\r\n" + "Host: " + secret_nodered_host + "\r\n\r\n");
     gotData = 0;
     data = "";
- 
+
+    delay(100); // Vi må være sikre på at data blir sendt
+    // Minutter * Sekunder * 1000000 = Mikrosekunder
+    ESP.deepSleep(7*1000000); // Deep Sleep i 7 sekunder etter mottatt data. NB! Koble GPIO 16 til RST
  }
 
 }  // THE-END
