@@ -2,17 +2,9 @@
  *  2018.
  *  Leser data fra HAN-porten og sender det videre til HS3 via NODE-RED på port 1880 /han?data=
  */
- 
-#include <ESP8266WiFi.h>
-//////////////////////////////////////////////////////////
-////////////// PERSONLIGE VARIABLER //////////////////////
-//////////////////////////////////////////////////////////
 
-const char* ssid = "mittnettverk";      // Navn på wifi-nettverk
-const char* password = "passord";   // Passord til dette
-const char* host = "192.168.0.10";       // IP TIL NODE-RED
-const String url = "/postboks?data="; // hvilken url Node red lytter på
-const int port = 1880;          // PORT TIL NODE-RED
+#include "config_prod.h" 
+#include <ESP8266WiFi.h>
 
 int gotData = 0;
 String data = "";  
@@ -20,7 +12,7 @@ char lager[260];
 
 void setup() {
   Serial.begin(2400,SERIAL_8N1);   
-  WiFi.begin(ssid, password);
+  WiFi.begin(secret_ssid, secret_ssid_password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
   }
@@ -46,12 +38,12 @@ if (gotData != 0){
     
     WiFiClient client;
  
-    if (!client.connect(host, int(port))) {
+    if (!client.connect(secret_nodered_host, secret_nodered_port)) {
       Serial.println("connection failed");
       return;
     }
   
-    client.print(String("GET ") + url + String(data) + " HTTP/1.1\r\n" + "Host: " + host + "\r\n\r\n");
+    client.print(String("GET ") + secret_nodered_url + String(data) + " HTTP/1.1\r\n" + "Host: " + secret_nodered_host + "\r\n\r\n");
     gotData = 0;
     data = "";
  
